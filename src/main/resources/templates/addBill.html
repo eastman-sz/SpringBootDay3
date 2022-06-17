@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+
+</head>
+
+<body>
+
+<script th:inline="javascript">
+
+    function onPrimaryClassificationChange(object) {
+        const value = object.value;
+        const sec = document.getElementById('secondaryClassificationSelect');
+
+        sec.innerHTML = "<option value='AA' title='AB'></option>";
+    };
+
+</script>
+
+
+    <form action="/insertBill">
+        amount: <input name="amount" th:type="number" th:accept="Integer" th:value="0"><br><br>
+        merchant:
+        <select th:name="merchantId">
+            <option th:each="merchant , a: ${merchantList}" th:text="${merchant.getName()}" th:value="${merchant.getMerchantId()}"></option>
+        </select>
+
+        <br><br>
+
+        classification:
+        <select th:name="primaryClassificationId" onchange="onPrimaryClassificationChange(this)">
+            <option th:each="primaryClassification , b: ${primaryClassificationList}" th:text="${primaryClassification.getName()}" th:value="${primaryClassification.getCid()}"></option>
+        </select>
+
+        <br><br>
+        secondaryClassification:
+        <select id="secondaryClassificationSelect" th:name="secondaryClassificationId">
+            <option th:each="secondaryClassification , b: ${secondaryClassificationList}" th:text="${secondaryClassification.getName()}" th:value="${secondaryClassification.getCid()}"></option>
+        </select>
+
+        <br><br>
+        <br><br>
+
+
+        <input th:type="submit" th:value="Submit">
+
+    </form>
+
+
+
+</body>
+</html>
